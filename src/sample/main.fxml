@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" prefHeight="30.0" prefWidth="10000.0" text="Sortest Job First Simulator" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </Label>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <TableView prefHeight="100.0" prefWidth="423.0" HBox.hgrow="ALWAYS">
+              <columns>
+                <TableColumn prefWidth="87.0" text="Job Color" />
+                <TableColumn prefWidth="114.0" text="Job No" />
+                <TableColumn minWidth="0.0" prefWidth="161.0" text="Arrival Time" />
+                <TableColumn prefWidth="162.0" text="Burst Time" />
+              </columns>
+            </TableView>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="155.0" text="Add Job" />
+                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="155.0" text="Remove Job" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" prefWidth="600.0" spacing="30.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Start" />
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Stop" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Reset" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+      <HBox prefHeight="146.0" prefWidth="655.0" spacing="10.0">
+         <children>
+            <VBox prefHeight="126.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="323.0" text="Ready Queue" textAlignment="CENTER" textOverrun="CLIP">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane prefHeight="73.0" prefWidth="325.0">
+                     <content>
+                        <HBox prefHeight="70.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="70.0" stroke="BLACK" strokeType="INSIDE" width="30.0">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Rectangle>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="70.0" layoutX="15.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" width="30.0">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Rectangle>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </HBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+            <ScrollPane fitToWidth="true" prefHeight="101.0" prefWidth="359.0" HBox.hgrow="ALWAYS">
+               <content>
+                  <GridPane alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="279.0" vgap="5.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="91.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="200.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <ProgressBar prefWidth="10000.0" progress="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="82.0" GridPane.hgrow="ALWAYS" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="30.0" stroke="BLACK" strokeType="INSIDE" width="82.0" GridPane.rowIndex="1" />
+                        <ProgressBar prefWidth="10000.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </content>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </ScrollPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+      <ScrollPane fitToWidth="true" prefHeight="112.0" prefWidth="655.0">
+         <content>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </content>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </ScrollPane>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="234.0" text="Turnaround Time : " HBox.hgrow="ALWAYS">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="316.0" text="Waiting Time : ">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>
