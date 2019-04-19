@@ -4,15 +4,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sun.plugin2.util.ColorUtil;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class Job {
@@ -21,8 +18,9 @@ public class Job {
     private int arrivalTime;
     private int burstTime;
     private String jobColor;
-    private Rectangle readyRect;
-    private StackPane stack;
+    private Rectangle readyRect,grantRect,currentJob;
+    private StackPane stackForReadyRect,stackForGrant,stackCurrentJob;
+    private int waitingTime = 0;
     public void add() throws IOException {
         Parent root  = FXMLLoader.load(getClass().getResource("addNew.fxml"));
         window = new Stage();
@@ -72,12 +70,46 @@ public class Job {
         readyRect.setHeight(70);
         readyRect.setWidth(30);
         readyRect.setFill(Paint.valueOf(this.getJobColor()));
-        Text text = new Text(String.valueOf(this.getJobNo()));
-        text.setStyle("-fx-font-size: 16pt");
-        stack = new StackPane();
-        stack.getChildren().addAll(readyRect,text);
+        Text textReadyRect = new Text(String.valueOf(this.getJobNo()));
+        textReadyRect.setStyle("-fx-font-size: 16pt");
+        stackForReadyRect = new StackPane();
+        stackForReadyRect.getChildren().addAll(readyRect,textReadyRect);
     }
     public StackPane getReadyRect(){
-        return stack;
+        return stackForReadyRect;
     }
+
+    public void setGrantRect(){
+        grantRect = new Rectangle();
+        grantRect.setHeight(82);
+        grantRect.setWidth(10);
+        grantRect.setFill(Paint.valueOf(this.getJobColor()));
+        Text textGrant = new Text(String.valueOf(this.getJobNo()));
+        stackForGrant = new StackPane();
+        stackForGrant.getChildren().addAll(grantRect,textGrant);
+    }
+    public StackPane getGrantRect(){
+        return stackForGrant;
+    }
+    public void setCurrentRect(){
+        currentJob = new Rectangle();
+        currentJob.setWidth(143);
+        currentJob.setHeight(27);
+        currentJob.setFill(Paint.valueOf(this.getJobColor()));
+        Text currentText = new Text(String.valueOf(this.getJobNo()));
+        stackCurrentJob = new StackPane();
+        stackCurrentJob.getChildren().addAll(currentJob,currentText);
+    }
+    public StackPane getCurrentRect(){
+        return stackCurrentJob;
+    }
+
+    public int getWaitingTime() {
+        return waitingTime;
+    }
+
+    public void incWaitingTime() {
+        this.waitingTime +=1;
+    }
+
 }

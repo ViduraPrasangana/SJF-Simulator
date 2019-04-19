@@ -3,19 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <Label alignment="CENTER" prefHeight="30.0" prefWidth="10000.0" text="Sortest Job First Simulator" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
@@ -37,8 +32,7 @@
                 </TableView>
                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                     <children>
-                        <Button fx:id="addNew" mnemonicParsing="false" onAction="#onClickAddNew" prefHeight="32.0" prefWidth="155.0" text="Add Job" />
-                        <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="155.0" text="Remove Job" />
+                        <Button fx:id="addNew" mnemonicParsing="false" onAction="#onClickAddNew" prefHeight="42.0" prefWidth="100.0" text="Add Job" />
                     </children>
                 </VBox>
             </children>
@@ -48,15 +42,15 @@
         </HBox>
         <HBox alignment="CENTER" prefHeight="74.0" prefWidth="655.0" spacing="30.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#start" prefHeight="40.0" prefWidth="200.0" text="Start" />
-                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#pause" prefHeight="40.0" prefWidth="200.0" text="Stop" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Reset" />
+                <Button fx:id="start" mnemonicParsing="false" onAction="#start" prefHeight="40.0" prefWidth="200.0" text="Start" />
+                <Button fx:id="pause" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#pause" prefHeight="40.0" prefWidth="200.0" text="Stop" />
+                <Button mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="200.0" text="Reset" />
             </children>
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
         </HBox>
-        <HBox prefHeight="146.0" prefWidth="655.0" spacing="10.0">
+        <HBox prefHeight="118.0" prefWidth="655.0" spacing="10.0">
             <children>
                 <VBox prefHeight="126.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
                     <children>
@@ -65,7 +59,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <ScrollPane prefHeight="73.0" prefWidth="325.0">
+                        <ScrollPane prefHeight="73.0" prefWidth="335.0">
                             <content>
                                 <HBox fx:id="readyQueue" prefHeight="70.0" spacing="10.0">
                                     <children>
@@ -79,39 +73,36 @@
                         </ScrollPane>
                     </children>
                 </VBox>
-                <ScrollPane fitToWidth="true" prefHeight="101.0" prefWidth="359.0" HBox.hgrow="ALWAYS">
-                    <content>
-                        <GridPane alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="279.0" vgap="5.0">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="91.0" />
-                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="200.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <ProgressBar prefWidth="10000.0" progress="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" />
-                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="30.0" stroke="BLACK" strokeType="INSIDE" width="82.0" GridPane.hgrow="ALWAYS" />
-                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="30.0" stroke="BLACK" strokeType="INSIDE" width="82.0" GridPane.rowIndex="1" />
-                                <ProgressBar prefWidth="10000.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                            </children>
-                        </GridPane>
-                    </content>
-                    <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                    </padding>
-                </ScrollPane>
+            <VBox prefHeight="132.0" prefWidth="306.0">
+               <children>
+                  <HBox fx:id="currentHbox" maxHeight="33.0" minWidth="33.0" prefHeight="33.0" prefWidth="308.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="32.0" prefWidth="165.0" text="Current Job   --&gt;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </padding>
+                  </HBox>
+                  <Label fx:id="time" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="52.0" prefWidth="231.0" text="0" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </padding>
+            </VBox>
             </children>
             <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                <Insets left="10.0" right="10.0" />
             </padding>
         </HBox>
-        <ScrollPane fitToWidth="true" prefHeight="103.0" prefWidth="635.0">
+        <ScrollPane fitToHeight="true" prefHeight="103.0" prefWidth="635.0">
             <content>
-                <HBox prefHeight="86.0" prefWidth="633.0">
+                <HBox fx:id="grantChart" minHeight="-Infinity" prefHeight="0.0" prefWidth="620.0">
                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                     </padding>
                 </HBox>
             </content>
@@ -121,12 +112,12 @@
         </ScrollPane>
         <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
             <children>
-                <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="234.0" text="Turnaround Time : " HBox.hgrow="ALWAYS">
+                <Label fx:id="avgTurnaroundTime" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="72.0" prefWidth="339.0" text="Average Turnaround Time : " HBox.hgrow="ALWAYS">
                     <font>
                         <Font size="21.0" />
                     </font>
                 </Label>
-                <Label layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="316.0" text="Waiting Time : ">
+                <Label fx:id="avgWaitingTime" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="316.0" text="Average Waiting Time : ">
                     <font>
                         <Font size="21.0" />
                     </font>

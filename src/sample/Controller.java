@@ -20,26 +20,33 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable{
-    public Button addNew;
+public class Controller implements Initializable {
+    public Button addNew, start, pause;
     public TableView table;
-    public TableColumn tableColor,tableNo,tableArrival,tableBurst;
-    public HBox readyQueue;
+    public TableColumn tableColor, tableNo, tableArrival, tableBurst;
+    public HBox readyQueue, grantChart, currentHbox;
+    public Label time;
+    public Label avgWaitingTime;
+
+
+
+    public Label avgTurnaroundTime;
     private static Main main;
     private static Job currentJob;
     private ObservableList<Job> data;
 
-    public static void setMain(Main main){
+    public static void setMain(Main main) {
         Controller.main = main;
 
     }
+
     public void onClickAddNew() throws IOException {
         currentJob = main.newJob();
         currentJob.add();
         AddNewController.setCurrentJob(currentJob);
     }
 
-    public void addRowToTable(Job job){
+    public void addRowToTable(Job job) {
         table.getItems().add(job);
     }
 
@@ -58,7 +65,7 @@ public class Controller implements Initializable{
                             public void updateItem(String item, boolean empty) {
                                 super.updateItem(item, empty);
                                 setText(null);
-                                setStyle("-fx-background-color:"+getString());
+                                setStyle("-fx-background-color:" + getString());
                             }
 
                             private String getString() {
@@ -75,22 +82,82 @@ public class Controller implements Initializable{
         Main.setController(this);
 
     }
-    public void start(){
-        main.startSimulation();
+
+    public void start() {
+        if (start.getText().equals("Resume")){
+            main.resumeSimulate();
+        } else{
+            main.startSimulation();
+        }
+        start.setDisable(true);
+        pause.setDisable(false);
+
     }
-    public void addRectangle(Job job){
+
+    public void addReadyRect(Job job) {
         job.setReadyRect();
         StackPane stack = job.getReadyRect();
         readyQueue.getChildren().add(stack);
 
     }
-    public void removeAllReadyQ(ArrayList<Job> jobs){
-        for (Job job:jobs) {
+
+    public void removeAllReadyRect(ArrayList<Job> jobs) {
+        for (Job job : jobs) {
             readyQueue.getChildren().remove(job.getReadyRect());
         }
 
     }
-    public void pause(){
+
+    public void removeReadyRect(Job job) {
+        readyQueue.getChildren().remove(job.getReadyRect());
+
+    }
+
+    public void pause() {
         main.pauseSimulate();
+        start.setDisable(false);
+        start.setText("Resume");
+        pause.setDisable(true);
+    }
+
+    public void addGrantRect(Job job) {
+        job.setGrantRect();
+        StackPane stack = job.getGrantRect();
+        grantChart.getChildren().add(stack);
+    }
+
+    public void removeAllGrantRect() {
+            grantChart.getChildren().clear();
+    }
+
+    public void addCurrentRect(Job job) {
+        job.setCurrentRect();
+        StackPane current = job.getCurrentRect();
+        currentHbox.getChildren().add(current);
+    }
+
+    public void removeCurrentRect(Job job) {
+        currentHbox.getChildren().remove(job.getCurrentRect());
+    }
+
+    public void setTime(int time) {
+        this.time.setText(String.valueOf(time));
+    }
+
+    public void setAvgWaitingTime(float avgWaitingTime) {
+        this.avgWaitingTime.setText("Average Waiting Time : "+String.valueOf(avgWaitingTime));
+    }
+
+    public void setAvgTurnaroundTime(float avgTurnaroundTime) {
+        this.avgTurnaroundTime.setText("Average Turnaround Time : "+String.valueOf(avgTurnaroundTime));
+    }
+    public void reset(){
+        pause();
+        removeAllGrantRect();
+        main.reset();
+        readyQueue.getChildren().clear();
+        currentHbox.getChildren().clear();
+        setTime(0);
+        start.setText("Start");
     }
 }

@@ -17,17 +17,20 @@ import java.util.Comparator;
 import static java.lang.Thread.sleep;
 
 public class Main extends Application {
-    private ArrayList<Job> jobList, readyQueue;
-    private boolean start = false;
+    private ArrayList<Job> AllJobs, jobList, readyQueue,arrived;
     private int counter;
     private static Controller controller;
     private Timeline simulate;
+    private Job currentJob;
+    private int currentTime;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         counter = 0;
         jobList = new ArrayList<>();
         readyQueue = new ArrayList<>();
+        arrived = new ArrayList<>();
+        AllJobs =new ArrayList<>();
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         primaryStage.setTitle("Shortest Job First Algorithm Simulator");
         primaryStage.setScene(new Scene(root, 655, 557));
@@ -49,6 +52,7 @@ public class Main extends Application {
 
     public void addToJobs(Job job) {
         jobList.add(job);
+        AllJobs.add(job);
         updateTable(job);
     }
 
@@ -65,33 +69,87 @@ public class Main extends Application {
     }
 
     public void startSimulation() {
-        start = true;
 
         simulate = new Timeline(new KeyFrame(Duration.seconds(1), (ActionEvent event1) -> {
+
             for (Job job : jobList) {
                 if (job.getArrivalTime() <= counter) {
                     readyQueue.add(job);
-
+                    arrived.add(job);
                 }
             }
-            sort(readyQueue);
-            controller.removeAllReadyQ(readyQueue);
             for (Job job : readyQueue) {
                 if (jobList.contains(job)) {
                     jobList.remove(job);
                 }
-                controller.addRectangle(job);
 
             }
-            if (jobList.isEmpty()){
+            controller.setAvgWaitingTime(waitingTime(arrived));
+            controller.setAvgTurnaroundTime(turnArroundTime(arrived));
+
+            sort(readyQueue);
+
+
+            if (!readyQueue.isEmpty()) {
+                if (currentJob == null) {
+                    currentJob = readyQueue.get(0);
+                    readyQueue.remove(currentJob);
+                    controller.removeReadyRect(currentJob);
+                    controller.addCurrentRect(currentJob);
+                    currentTime = 0;
+                }
+            }
+            if (currentJob != null) {
+                controller.addGrantRect(currentJob);
+                currentTime += 1;
+                if (currentTime >= currentJob.getBurstTime()) {
+                    controller.removeCurrentRect(currentJob);
+                    currentJob = null;
+                }
+            }
+            controller.removeAllReadyRect(readyQueue);
+            for (Job job : readyQueue) {
+                controller.addReadyRect(job);
+                job.incWaitingTime();
+            }
+            if (jobList.isEmpty() && readyQueue.isEmpty() && (currentJob == null)) {
                 simulate.stop();
             }
-            counter+=1;
+            counter += 1;
+            controller.setTime(counter);
+
         }));
         simulate.setCycleCount(Timeline.INDEFINITE);
         simulate.play();
     }
-    public void pauseSimulate(){
+
+    public void pauseSimulate() {
         simulate.pause();
+    }
+
+    public void resumeSimulate() {
+        simulate.play();
+    }
+
+    public float waitingTime(ArrayList<Job> list) {
+        int sum = 0;
+        for (Job job : list) {
+            sum += job.getWaitingTime();
+        }
+        return (list.size()==0) ?  0: sum / list.size();
+    }
+    public float turnArroundTime(ArrayList<Job> list) {
+        float sum = 0;
+        for (Job job : list) {
+            sum += job.getWaitingTime()+job.getBurstTime();
+        }
+        return (list.size()==0) ?  0: sum / list.size();
+    }
+    public void reset(){
+        arrived.clear();
+        readyQueue.clear();
+        jobList = AllJobs;
+        counter = 0;
+        currentTime= 0;
     }
 }
