@@ -119,6 +119,11 @@ public class Controller implements Initializable {
         start.setText("Resume");
         pause.setDisable(true);
     }
+    public void addEmptyGrantRec(){
+        Job.setEmptyGrantRect();
+        StackPane stack = Job.getEmptyGrantRect();
+        grantChart.getChildren().add(stack);
+    }
 
     public void addGrantRect(Job job) {
         job.setGrantRect();

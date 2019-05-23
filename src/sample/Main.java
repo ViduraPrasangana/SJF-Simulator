@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import static java.lang.Thread.sleep;
 
 public class Main extends Application {
     private ArrayList<Job> AllJobs, jobList, readyQueue,arrived;
@@ -106,6 +105,8 @@ public class Main extends Application {
                     controller.removeCurrentRect(currentJob);
                     currentJob = null;
                 }
+            }else{
+                controller.addEmptyGrantRec();
             }
             controller.removeAllReadyRect(readyQueue);
             for (Job job : readyQueue) {

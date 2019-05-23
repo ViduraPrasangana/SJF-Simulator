@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -19,6 +20,8 @@ public class Job {
     private int burstTime;
     private String jobColor;
     private Rectangle readyRect,grantRect,currentJob;
+    private static Rectangle emptyGrantRect;
+    private static StackPane stackForEmptyGrant;
     private StackPane stackForReadyRect,stackForGrant,stackCurrentJob;
     private int waitingTime = 0;
     public void add() throws IOException {
@@ -99,6 +102,21 @@ public class Job {
         Text currentText = new Text(String.valueOf(this.getJobNo()));
         stackCurrentJob = new StackPane();
         stackCurrentJob.getChildren().addAll(currentJob,currentText);
+    }
+    public static void setEmptyGrantRect(){
+        emptyGrantRect = new Rectangle();
+//        emptyGrantRect.setStroke(Color.BLACK);
+//        emptyGrantRect.setStrokeWidth(1);
+        emptyGrantRect.setHeight(82);
+        emptyGrantRect.setWidth(10);
+        emptyGrantRect.setFill(Color.TRANSPARENT);
+        Text textGrant = new Text("n");
+        stackForEmptyGrant = new StackPane();
+        stackForEmptyGrant.getChildren().addAll(emptyGrantRect,textGrant);
+
+    }
+    public static StackPane getEmptyGrantRect(){
+        return stackForEmptyGrant;
     }
     public StackPane getCurrentRect(){
         return stackCurrentJob;
